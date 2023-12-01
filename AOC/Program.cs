@@ -18,8 +18,9 @@ namespace AOC
             //Class1.whatsUp();
 
             Console.ReadKey();
-            string fName = "readingFileTest.txt";
+            string fName = "readingFile.txt";
             int lineNumber = 0;
+            int sum = 0;
             List<int> counting = new List<int>();
             List<int> totalNumbers = new List<int>();
             using (StreamReader readingItUp = new StreamReader(fName))
@@ -28,11 +29,12 @@ namespace AOC
                 {
                     string line = readingItUp.ReadLine();
                     Console.WriteLine("{0}", line);
-                    counting.Clear();
+                    counting.Clear(); // clears list
+                    int newNumber;
                     for (int i = 0; i < line.Length; i++)
                     {
                         char currentChar = line[i];
-                        if (char.IsDigit(currentChar) == true)
+                        if (char.IsDigit(currentChar))
                         {
                             // Console.WriteLine($"{currentChar}");
                             counting.Add(int.Parse(currentChar.ToString()));
@@ -45,11 +47,13 @@ namespace AOC
                     if (counting.Count > 2)
                     {
                         counting.RemoveRange(1, counting.Count - 2);
-                        quickAppend(counting,totalNumbers);
+                        newNumber = int.Parse(counting[0].ToString() + counting[1].ToString());
+                        quickAppend(newNumber,totalNumbers, ref sum);
                     }
                     else if (counting.Count == 1)
                     {
-                        quickAppend(counting,totalNumbers);
+                        newNumber = int.Parse(counting[0].ToString() + counting[0].ToString());
+                        quickAppend(newNumber,totalNumbers, ref sum);
                     }
                     else if (counting.Count == 0)
                     {
@@ -57,7 +61,8 @@ namespace AOC
                     }
                     else
                     {
-                        quickAppend(counting, totalNumbers);
+                        newNumber = int.Parse(counting[0].ToString() + counting[1].ToString());
+                        quickAppend(newNumber, totalNumbers, ref sum);
                     }
                     for (int i = 0; i < counting.Count; i++)
                     {
@@ -68,11 +73,11 @@ namespace AOC
                 }
             }
 
-            int sum = 0;
-            for (int i = 0; i < totalNumbers.Count; i++)
-            {
-                sum += totalNumbers[i];
-            }
+            
+            //for (int i = 0; i < totalNumbers.Count; i++)
+            //{
+            //    sum += totalNumbers[i];
+            //}
             Console.WriteLine("the sum: {0}", sum);
             //for (int i = 0; i < totalNumbers.Count; i++) // printing out total numbers.
             //{
@@ -81,12 +86,14 @@ namespace AOC
             Console.ReadKey(); Console.ReadKey();
 
         }
-        static public void quickAppend(List<int> counting,List<int> totalNumbers)
+        static public void quickAppend(int newNumber,List<int> totalNumbers, ref int sum)
         {
-            for (int i = 0; i < counting.Count; i++)
-            {
-                totalNumbers.Add(counting[i]);
-            }
+            sum += newNumber;
+            //for (int i = 0; i < counting.Count; i++)
+            //{
+            //    // totalNumbers.Add(counting[i]);
+
+            //}
         }
     }
 }
