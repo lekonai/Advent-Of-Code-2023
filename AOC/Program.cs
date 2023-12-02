@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
 
-namespace AOC
+namespace Day1
 {
     class P1
     {   
